@@ -65,3 +65,22 @@ const main = async () => {
 };
 
 main().catch(err => console.error("search.js:", err));
+
+// En static/search.js
+function searchPosts(query, posts) {
+    const q = query.toLowerCase().trim();
+    if (!q) return [];
+
+    return posts.map(post => {
+        let score = 0;
+        const titleMatch = post.title.toLowerCase().match(new RegExp(q, 'g'));
+        const contentMatch = post.content.toLowerCase().match(new RegExp(q, 'g'));
+        
+        if (titleMatch) score += titleMatch.length * 3; // Mayor peso al título
+        if (contentMatch) score += contentMatch.length; // Peso al contenido
+        
+        return { ...post, score };
+    })
+    .filter(post => post.score > 0)
+    .sort((a, b) => b.score - a.score); // Orden descendente por coincidencias
+}

@@ -44,7 +44,6 @@ CREATE TABLE tags (
   PRIMARY KEY (url, tag)
 );
 """
-
 # SQL produce directamente el JSON (extensión json1 de SQLite).
 Q_SEARCH = """
 SELECT json_group_array(json_object(

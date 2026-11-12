@@ -10,7 +10,8 @@ build: index   ## Genera el sitio estático en public/ (esto es lo que se despli
 
 serve: index   ## Servidor local con recarga: http://localhost:1313/
 	hugo server
-
+	python3 tools/index.py --drafts   # Añadimos el flag aquí
+	hugo server -D
 check: index   ## Valida que los JSON generados son JSON de verdad
 	python3 -m json.tool static/search.json > /dev/null
 	python3 -m json.tool data/tags.json > /dev/null
